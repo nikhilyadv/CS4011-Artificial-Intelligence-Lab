@@ -1,0 +1,29 @@
+**PLEASE RUN THE PROGRAMS IN PYTHON 3 OR ABOVE**
+Q2 bunny.py
+	States -> states in this question are rather tricky to define. I define them as C * D where C is the count and D is the direction(check the code). These states are internal to the agent a.k.a bunny.
+
+	Precepts -> percept is just a signal indicating that whether the bunny is currently on water or land.
+
+	Actions -> action is to move either right or left depending on the state.
+
+	Strategy -> to cover the full 2D line the best possible way is to go back and forth, each time increasing your distance by 1 in each direction until you see a land.
+
+Q3 vacummrobo.py
+	States -> each position in the 2D space is a state.
+
+	Precepts -> whether there is dirt or not at the current position.
+
+	Actions -> Moving on the next position
+
+	Strategy -> to cover the entire 2D space in a spiral fashion, until all the dirt is picked up.
+
+Q4 countwords.py
+	States -> 3 states, marked by agent.previous - 
+				1) start state
+				2) state which represents that the last read was a blank space
+				3) state which represents that the last read was not a space
+	Precepts -> Current read character.
+
+	Action -> To increment the count or not.
+
+	Strategy -> If a space is encountered after reading a character then increment the count. Change the previous read character at the end each time.
