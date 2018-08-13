@@ -1,0 +1,7 @@
+**PLEASE RUN THE PROGRAMS IN PYTHON 3 OR ABOVE**
+**NAME - NIKHIL KUMAR YADAV
+**ROLL - 111601013
+
+curse.py
+	IDEA-> Create 3 envirnoments each contain a array to denote the current position and a variable moves to count the number of moves. Generate a random number and then update the current position according to it, increase number of moves and then check whether goal state is reached or not, if reached exit else loopback again. 
+	Generating the graph -> find the values of moves for l =2,3,4,5,6,7,8,9,10 and then average them over 100 times and then plot them using matplotlib. Result is shown in a png file.
