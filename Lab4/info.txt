@@ -1,0 +1,8 @@
+NAME - NIKHIL KUMAR YADAV
+ROLL NO - 111601013
+n2-1.py
+	input files is in.txt. use python n2-1.py <in.txt
+	I have calculate parity in all the 3 ways possible ,i.e (O(n^4),O(n^2*log(n)),O(n^2)).
+	The program outputs whether the given board position is solvable or not.
+navigation.py
+	I have just created a random 100*100 grid and displayed it.
