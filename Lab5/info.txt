@@ -1,0 +1,7 @@
+NAME - NIKHIL KUMAR YADAV
+ROLL NO - 111601013
+n2-1.py
+	input files is in.txt. use python n2-1.py <in.txt
+	In this program I have implemented a simple and standard bfs search.
+	I must warn that it might not work for some configuration as it as a program has space limitations etc.
+	I used a queue to store the current state and used a dictionary to hash the state so that I maintain a visited array.
