@@ -5,3 +5,4 @@ n2-1.py
 	In this program I have implemented a simple and standard bfs search.
 	I must warn that it might not work for some configuration as it as a program has space limitations etc.
 	I used a queue to store the current state and used a dictionary to hash the state so that I maintain a visited array.
+I have 2 inputs in.txt and in2.txt. in2.txt does not work in this porgram as the program runs out of memory.

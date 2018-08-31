@@ -2,6 +2,42 @@ import numpy as np
 import queue
 import copy
 
+class segtree:						# class for segtree
+	def __init__(self,n):
+		self.n = n
+		self.a = np.zeros(4*n)
+		#for i in range(0,n):
+		#	self.a[n+i] = arr[i]
+		#self.build()
+
+	def build(self):
+		for i in range(self.n-1,0,-1):
+			self.a[i] = self.a[i<<1] + self.a[i<<1 | 1]
+
+	def update(self,index,value):
+		index += self.n
+		self.a[index] = value
+		i = index
+		while i > 1:
+			self.a[i>>1] = self.a[i] + self.a[i^1]
+			i >>= 1
+
+
+	def query(self,l,r):		#from l to r-1
+		res = 0
+		l += self.n
+		r += self.n
+		while l < r:
+			if l&1 :
+				res += self.a[l]
+				l += 1
+			if r&1 :
+				r -= 1
+				res += self.a[r]
+			l >>= 1
+			r >>= 1
+		return res
+
 class n2puzzle :					# puzzle board
 	def __init__(self):
 		self.n = int(input())
@@ -9,7 +45,7 @@ class n2puzzle :					# puzzle board
 		self.a = self.getarray()													#input array
 		self.goal = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]])		#goal state or final configuration
 		self.print_info()
-		if self.check():
+		if self.check():															#perform bfs only if the parity of input is correct
 			self.bfs()
 
 	def getarray(self):
@@ -22,27 +58,25 @@ class n2puzzle :					# puzzle board
 		return a
 
 	def check(self):
-		if self.checkparityn2() == True:
+		if self.checkparityn2logn() == True:
 			print("Solvable")
 			return True
 		print("Not Solvable")
 		return False
 
-	def checkparityn2(self):			# using cycle check method
-		arr = self.a.flatten().tolist()
+	def checkparityn2logn(self):		# using segtrees
+		arr = self.a.flatten()
+		arr = arr.tolist()
+		zeropos = self.n - self.position[0] - 1 + self.n - self.position[1] - 1
 		arr.remove(0)
 		n = len(arr)
-		visited = np.zeros(n)
-		counter = 0
-		cycles = 0
+		seg = segtree(n)
+		res = 0
 		for i in range(0,n):
-			if not visited[i]:
-				counter = i
-				while not visited[counter]:
-					visited[counter] = 1
-					counter = arr[counter] - 1
-				cycles += 1
-		parity = (n + 1 - cycles) % 2
+			seg.update(arr[i],1)
+			res += arr[i] -seg.query(0,arr[i])
+		res += zeropos
+		parity = res % 2
 		if parity:
 			return True
 		return False

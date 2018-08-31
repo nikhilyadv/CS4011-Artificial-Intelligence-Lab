@@ -58,7 +58,7 @@ class n2puzzle :					# puzzle board
 		return a
 
 	def check(self):
-		if self.checkparityn2() == True:		
+		if self.checkparityn2logn() == True:		
 			print("Solvable")
 		else:
 			print("Not Solvable")
