@@ -1,0 +1,7 @@
+NAME - NIKHIL KUMAR YADAV
+ROLL NO - 111601013
+navigation.py
+	input file is in.txt. use python navigation.py <in.txt
+	In this program I have implemented a A* search algorithm.
+	Grid is generated randomly using probablity of blocks(i.e 1's) to be 1/6.
+	g is cost till now and h is either manhattan distance or eculidean distance depending on users choice. Number of actions from a given state are also dependent on users choice.
