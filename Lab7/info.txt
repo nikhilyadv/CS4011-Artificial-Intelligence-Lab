@@ -1,0 +1,8 @@
+Name - NIKHIL KUMAR YADAV
+ROLL - 111601013
+PLEASE USE PYTHON 3
+
+1.py ->
+		This program uses simple A* search. Heuristic is chosen to be Euclidean distance.
+2.py -> 
+		Here at every possible path in my search i have two options either to take the bus or to take cycle (thought there is a limit on distance > 3). I take both the options and then evaluate the best one. 
