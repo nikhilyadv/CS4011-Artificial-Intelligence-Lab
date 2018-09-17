@@ -1,0 +1,5 @@
+Name - Nikhil Kumar Yadav
+Roll - 11601013
+Program n2-2 puzzle test 1
+I am performing A* search with manhattan distance of each piece on the board as heuristic.
+I am maintaing a visited list. From each state there are 8 possible movement options. I just iterate and then check whether the current move is possible or not.

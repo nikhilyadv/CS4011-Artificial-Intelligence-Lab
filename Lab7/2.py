@@ -30,7 +30,7 @@ class navigation:
       elif a == 1:
         self.busspeed = 37.5
       elif a == 2:
-        self.busspeed = 50
+        self.busspeed = 57
       self.cyclespeed = 25
       self.budget = b
       self.rate = c
