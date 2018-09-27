@@ -43,6 +43,7 @@ class puzzle:                       #CLASS
     def v(self):                                           #whether the current node is visited or not
         s = ''.join(str(y) for x in self.a for y in x)
         if not s in self.visited:
+            self.visited[s] = 1
             return True
         return False
     def visit(self):                                       #mark the current node as visited
