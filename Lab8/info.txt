@@ -1,0 +1,8 @@
+Name - NIKHIL KUMAR YADAV
+ROLL - 111601013
+PLEASE USE PYTHON 3
+
+policyiteration.py ->
+		This program is the simplest implementation of policy iteration. I choose a random policy and them updated my policy based on the current value I am getting.
+valueiteration.py -> 
+		This is also fairly straight forward. I choose a random value function and the update it each time by applying bellman operator.

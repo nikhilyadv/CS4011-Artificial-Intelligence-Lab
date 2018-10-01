@@ -1,0 +1,6 @@
+Name - NIKHIL KUMAR YADAV
+ROLL - 111601013
+PLEASE USE PYTHON 3
+
+cric.py
+		Expected runs are stored in the value.txt file and and policy(shots at every ball) is stored in shot.txt
