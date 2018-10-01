@@ -58,6 +58,6 @@ def bellman(ballsleft,wicketsinhand):
 for i in range(1,numballs+1):
 	for j in range(0,wickets):
 		v[i][j] , shot[numballs-i][j] = bellman(i,j)
-np.savetxt("value.txt",v,fmt = '%2.6f')
-np.savetxt("shot.txt",shot,fmt = '%0.f')
+np.savetxt("value.txt",v[1:numballs+1],fmt = '%2.6f')
+np.savetxt("shot.txt",shot[0:numballs],fmt = '%0.f')
 
