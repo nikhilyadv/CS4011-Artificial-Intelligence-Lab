@@ -6,11 +6,12 @@ a = 5                         #D R U L S
 s = n*n
 p = np.zeros((a,s,s))
 R = np.zeros((s))
-R[2] = 1
-R[4] = -1
+R[7] = -1
+R[4] = -1.2
+R[5] = 1
 print("Rewards are - ",R)
 Q = np.zeros((s))
-y = float(input("Enter discount - "))
+y = 0.9 #float(input("Enter discount - "))
 #print(p)
 def checkbound(i,j):
   if i >= 0 and i < n and j >= 0 and j < n:
@@ -33,15 +34,15 @@ for action in range(0,a):
       for move in range(0,a):
         if checkbound(i+dr[move],j+dc[move]):
           if(move == action):
-            p[action][i*n+j][(i+dr[move])*n+j+dc[move]] = 0.9
+            p[action][i*n+j][(i+dr[move])*n+j+dc[move]] = 0.7
           else:
               neighbours = neighbours + 1
       for move in range(0,a):
         if checkbound(i+dr[move],j+dc[move]):
           if (move != action and neighbours != 0):
-            p[action][i*n+j][(i+dr[move])*n+j+dc[move]] = 0.1 / neighbours
-v1 = np.ones((s))
-v = np.zeros((s))
+            p[action][i*n+j][(i+dr[move])*n+j+dc[move]] = 0.3 / neighbours
+v1 = np.zeros((s))
+v = np.ones((s))
 e = 1e-10
 while checkdiff(v,v1) > e:
   v1 = copy.deepcopy(v) 
@@ -50,10 +51,10 @@ while checkdiff(v,v1) > e:
     for action in range(0,a):
       tom = 0
       for j in range(0,s):
-        tom += p[action][i][j]*v1[j]
+        tom += p[action][i][j]*(y*v1[j]+R[j])
       if tom > maxi:
         maxi = tom
-    v[i] = R[i] + y * maxi
+    v[i] = maxi
 
 for i in range(0,s):
   maxi = -1
@@ -61,9 +62,7 @@ for i in range(0,s):
   for action in range(0,a):
     tom = 0
     for j in range(0,s):
-      tom += p[action][i][j]*v[j]
-    tom *= y
-    tom += R[i]
+      tom += p[action][i][j]*(y*v1[j]+R[j])
     if tom > maxi:
       maxi = tom
       arg = action

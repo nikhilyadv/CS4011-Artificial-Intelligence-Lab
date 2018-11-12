@@ -55,6 +55,7 @@ def bellman(ballsleft,wicketsinhand):
 			maximum = value
 			action = getrun(i)
 	return maximum,action
+
 for i in range(1,numballs+1):
 	for j in range(0,wickets):
 		v[i][j] , shot[numballs-i][j] = bellman(i,j)

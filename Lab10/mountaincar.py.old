@@ -1,0 +1,59 @@
+import numpy as np
+import math
+import copy
+
+class Mountain_car:
+	def __init__(self):
+		self.actions = [-1,0,1]
+		self.position = -0.5
+		self.velocity = 0.0
+		self.n = 20
+		self.a = 3
+		self.p = np.zeros((self.a,self.n,self.n,self.n,self.n))
+		for action in range(0,3):
+			for i in range(0,self.n):
+				for j in range(0,self.n):
+					pos , vel =  self.next(self.findpos(i),self.findvel(j),self.actions[action])
+					x , y = self.getpos(pos) , self.getvel(vel)
+					if not (x < 0 or y < 0 or x >= self.n or y >= self.n):
+						self.p[action][i][j][x][y] = 1
+		#print(self.p)
+		#TODO value iteration
+		self.R = np.zeros((self.n,self.n))
+		for i in range(0,self.n):
+			self.R[self.getpos(0.6)][i] = 100
+		v = np.zeros((self.n,self.n))
+		v1 = np.ones((self.n,self.n))
+		e = 10e-1
+		y = 0.9
+		while self.checkdiff(v,v1) > e:
+			v1 = copy.deepcopy(v)
+			for i in range(0,self.n):
+				for j in range(0,self.n):
+					maximum = 0
+					for action in range(0,self.a):
+						tom = 0
+						for k in range(0,self.n):
+							for l in range(0,self.n):
+								tom += self.p[action][i][j][k][l]*(y*v1[k][l]+self.R[k][l])
+						if tom > maximum:
+							maximum = tom
+					v[i][j] = maximum
+		print(v)
+	def checkdiff(self,v1,v2):
+		diff = 0
+		for i in range(0,self.n):
+			for j in range(0,self.n):
+				diff += abs(v1[i][j]-v2[i][j])
+		return diff
+	def getpos(self,i):
+		return int((i+1.2)/(1.8/self.n) - 1)
+	def getvel(self,j):
+		return int((j+0.07)/(0.14/self.n) - 1)
+	def findpos(self,i):
+		return (1.8/self.n * i) - 1.2
+	def findvel(self,j):
+		return	(0.14/self.n * j) - 0.07
+	def next(self,pos,vel,action):
+		return pos + vel, vel + action * (0.001) + math.cos(3 * pos)*(-0.0025)
+envi = Mountain_car()

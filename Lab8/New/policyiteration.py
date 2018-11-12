@@ -6,10 +6,9 @@ a = 5                         #D R U L S
 s = n*n
 p = np.zeros((a,s,s))
 R = np.zeros((s))
-R[2] = 1
-R[4] = -1
+R[8] = 1
+R[5] = -1
 print("Rewards are - ",R)
-Q = np.zeros((s))
 y = float(input("Enter discount - "))
 #print(p)
 def checkbound(i,j):
@@ -26,6 +25,14 @@ def checkdiff(v1,v2):
 dr = [1,0,-1,0,0]
 dc = [0,1,0,-1,0]
 
+def findnextstate(action , i):
+  move = int(action)
+  x = int(i/n)
+  y = int(i%n)
+  if checkbound(x+dr[move],y+dc[move]):
+    return (x*n + y)
+  return -1
+
 for action in range(0,a):
   for i in range(0,n):
     for j in range(0,n):
@@ -40,34 +47,42 @@ for action in range(0,a):
         if checkbound(i+dr[move],j+dc[move]):
           if (move != action and neighbours != 0):
             p[action][i*n+j][(i+dr[move])*n+j+dc[move]] = 0.1 / neighbours
-v1 = np.ones((s))
+Q = np.ones	((s))
+Q1 = np.zeros((s))
 v = np.zeros((s))
 e = 1e-10
-while checkdiff(v,v1) > e:
-  v1 = copy.deepcopy(v) 
+
+while checkdiff(Q,Q1) > e:
+  Q1 = copy.deepcopy(Q) 
+  Prob = np.zeros((s,s))
   for i in range(0,s):
-    maxi = 0
+  	j = findnextstate(Q1[i],i)
+  	if j != -1:
+  		Prob[i][j] = p[int(Q1[i])][i][j]
+  Prob = y * Prob
+  I = np.identity(s)
+  inverse = I - Prob
+  inverse = np.linalg.inv(inverse)
+  for j in range(0,s):
+  	v[j] = 0
+  	for k in range(0,s):
+  		v[j] += inverse[j][k] * R[k] 
+  for j in range(0,s):
+    maxi = -1
+    arg = -1
     for action in range(0,a):
       tom = 0
-      for j in range(0,s):
-        tom += p[action][i][j]*v1[j]
-      if tom > maxi:
-        maxi = tom
-    v[i] = R[i] + y * maxi
+      for k in range(0,s):
+        tom += p[action][j][k]*v[k]
+      tom *= y
+      t = findnextstate(action,j)
+      if t != -1:
+        tom += R[t]
+        if tom > maxi:
+          maxi = tom
+          arg = action
+    Q[j] = arg
 
-for i in range(0,s):
-  maxi = -1
-  arg = -1
-  for action in range(0,a):
-    tom = 0
-    for j in range(0,s):
-      tom += p[action][i][j]*v[j]
-    tom *= y
-    tom += R[i]
-    if tom > maxi:
-      maxi = tom
-      arg = action
-  Q[i] = arg
 q = np.chararray((n,n),unicode=True)
 for i in range(0,n):
   for j in range(0,n):
